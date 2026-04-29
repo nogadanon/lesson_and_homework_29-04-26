@@ -40,16 +40,11 @@ INSERT INTO sales (id, rep_name, region, product, amount, sale_date) VALUES
 		WHERE product LIKE 'laptop';
 		
 		-- Bonus: in one query show total_rows, rows_with_amount, and missing_amount side by side	
-		SELECT
+				SELECT
 		COUNT(*) AS total_rows,
 		COUNT(amount) AS rows_with_amount,
-		--------------
-		FROM sales ;
-
-	
-	WHERE amount IS NOT NULL,
-		COUNT(*) AS missing_amount FROM sales WHERE amount LIKE NULL;
-		FROM sales
+		COUNT(*) - COUNT(amount) AS missing_amount
+		FROM sales;
 		
 		-- Find the total revenue for the North region only
 		SELECT 
@@ -67,6 +62,12 @@ INSERT INTO sales (id, rep_name, region, product, amount, sale_date) VALUES
 		SELECT
 		SUM(amount) / COUNT(*) AS average_sale
 		FROM sales;
+
+		-- mistake :
+		SELECT
+		AVG(amount) AS average_sale
+		FROM sales;
+
 
 ---------- GROUP BY
 
@@ -112,13 +113,9 @@ GROUP BY rep_name
 ORDER BY amount_of_laptops DESC;
 LIMIT 1;
 
-		
-		--
-		SELECT
-		AVG(amount) AS average_sale
-		FROM sales;
 
 ---------- HAVING 
+
 -- Find regions where total revenue is above 1500
 SELECT
 region,
